@@ -54,3 +54,7 @@
 | 37  | [Strangler Fig](https://learn.microsoft.com/en-us/azure/architecture/patterns/strangler-fig)                                   |       |      |
 | 38  | [Throttling](https://learn.microsoft.com/en-us/azure/architecture/patterns/throttling)                                         |       |      |
 | 39  | [Valet Key](https://learn.microsoft.com/en-us/azure/architecture/patterns/valet-key)                                           |       |      |
+
+## Folder structure
+
+For each practice, the files should be placed under `/{NUM}-{LOWER-CASE-KEBAB-PATTERN-NAME}/{AUTHOR}` directory. For instance, the directory name of the second practice is `02-anti-corruption-layer`
