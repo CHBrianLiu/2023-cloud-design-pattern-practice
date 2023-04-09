@@ -57,4 +57,4 @@
 
 ## Folder structure
 
-For each practice, the files should be placed under `/{NUM}-{LOWER-CASE-KEBAB-PATTERN-NAME}/{AUTHOR}` directory. For instance, the directory name of the second practice is `02-anti-corruption-layer`
+For each practice, the files should be placed under `/{NUM}-{LOWER-CASE-KEBAB-PATTERN-NAME}/{AUTHOR}` directory. For instance, the directory name of the second practice is `02-anti-corruption-layer/brian/`.
