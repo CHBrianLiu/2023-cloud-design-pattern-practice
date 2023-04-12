@@ -1,0 +1,20 @@
+version: "3.8"
+services:
+  saas1:
+    build:
+      context: .
+      dockerfile: ./saas.Dockerfile
+    ports:
+      - "80"
+  saas2:
+    build:
+      context: .
+      dockerfile: ./saas.Dockerfile
+    ports:
+      - "80"
+  saas3:
+    build:
+      context: .
+      dockerfile: ./saas.Dockerfile
+    ports:
+      - "80"
