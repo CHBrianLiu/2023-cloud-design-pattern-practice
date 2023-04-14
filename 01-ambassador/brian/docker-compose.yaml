@@ -21,3 +21,10 @@ services:
       target: saas
     ports:
       - "80"
+  proxy:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+      target: proxy
+    ports:
+      - "80"

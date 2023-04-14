@@ -9,10 +9,19 @@ WORKDIR /app
 COPY ./requirements.txt /app/requirements.txt
 RUN pip install -r requirements.txt
 
+# base fastapi server
+FROM base AS base-fastapi-server
+
+CMD [ "uvicorn", "--host", "0.0.0.0", "--port", "80", "main:app" ]
+
 # fake saas app
-FROM base AS saas
+FROM base-fastapi-server AS saas
 
-COPY ./saas.py /app/saas.py
+COPY ./saas.py /app/main.py
 
-CMD [ "uvicorn", "--host", "0.0.0.0", "--port", "80", "saas:app" ]
+
+# proxy to log response time
+FROM base-fastapi-server AS proxy
+
+COPY ./proxy.py /app/main.py
 
