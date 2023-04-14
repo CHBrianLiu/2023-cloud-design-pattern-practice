@@ -25,3 +25,9 @@ FROM base-fastapi-server AS proxy
 
 COPY ./proxy.py /app/main.py
 
+# internal service
+FROM base AS internal
+
+COPY ./internal.py /app/internal.py
+
+CMD [ "python", "internal.py" ]

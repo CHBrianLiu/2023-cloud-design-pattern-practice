@@ -28,3 +28,13 @@ services:
       target: proxy
     ports:
       - "80"
+  internal-service:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+      target: internal
+    depends_on:
+      - saas1
+      - saas2
+      - saas3
+      - proxy
