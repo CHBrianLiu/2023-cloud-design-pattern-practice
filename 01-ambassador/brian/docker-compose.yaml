@@ -28,6 +28,8 @@ services:
       target: proxy
     ports:
       - "80"
+    environment:
+      INFLUXDB_CONNECTION_TOKEN: dPOfvxwBPCsnAJqE20e3vQ6xV_T5NyvLSy5sVfXgCMgYqzTf8j6avG5E4iUFJAb5Zot4iYl0k2qCW6ebXkFP1Q==
   internal-service:
     build:
       context: .
@@ -45,4 +47,6 @@ services:
         source: ./setup_influx.sh
         target: /setup_influx.sh
     ports:
-      - "8086"
+      - "8086:8086"
+    environment:
+      INFLUXDB_CONNECTION_TOKEN: dPOfvxwBPCsnAJqE20e3vQ6xV_T5NyvLSy5sVfXgCMgYqzTf8j6avG5E4iUFJAb5Zot4iYl0k2qCW6ebXkFP1Q==
