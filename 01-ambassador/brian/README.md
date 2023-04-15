@@ -27,3 +27,16 @@ A startup company heavily relies on other SaaS APIs to build the business. In ot
   - Infinite loop.
 - A time-series database: `InfluxDB`.
 - An ambassador container.
+
+## Run the demo
+
+> It's assumed your current working directory is in this folder.
+
+```bash
+# influxdb requires an initial setup setp
+docker compose create
+docker compose start influxdb
+docker compose exec influxdb bash /setup_influx.sh
+# start all other services
+docker compose up
+```

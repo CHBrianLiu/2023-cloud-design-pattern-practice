@@ -31,3 +31,4 @@ FROM base AS internal
 COPY ./internal.py /app/internal.py
 
 CMD [ "python", "internal.py" ]
+

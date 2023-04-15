@@ -38,3 +38,11 @@ services:
       - saas2
       - saas3
       - proxy
+  influxdb:
+    image: influxdb:2.6.0
+    volumes:
+      - type: bind
+        source: ./setup_influx.sh
+        target: /setup_influx.sh
+    ports:
+      - "8086"
