@@ -40,3 +40,10 @@ docker compose exec influxdb bash /setup_influx.sh
 # start all other services
 docker compose up
 ```
+
+## Demo
+
+1. Open the browser to visit [InfluxDB UI](http://localhost:8086).
+2. In Browse Data page, use the query builder to generate the diagram.
+
+![screenshot](./demo.jpg)
