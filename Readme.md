@@ -14,8 +14,8 @@
 ## Topics
 
 | #   | pattern                                                                                                                        | Brian | Mike |
-| --- | ------------------------------------------------------------------------------------------------------------------------------ | ----- | ---- |
-| 1   | [Ambassador](https://learn.microsoft.com/en-us/azure/architecture/patterns/ambassador)                                         |       |      |
+| --- | ------------------------------------------------------------------------------------------------------------------------------ | :---: | :--: |
+| 1   | [Ambassador](https://learn.microsoft.com/en-us/azure/architecture/patterns/ambassador)                                         |   V   |      |
 | 2   | [Anti-Corruption Layer](https://learn.microsoft.com/en-us/azure/architecture/patterns/anti-corruption-layer)                   |       |      |
 | 3   | [Asynchronous Request-Reply](https://learn.microsoft.com/en-us/azure/architecture/patterns/async-request-reply)                |       |      |
 | 4   | [Backends for Frontends](https://learn.microsoft.com/en-us/azure/architecture/patterns/backends-for-frontends)                 |       |      |

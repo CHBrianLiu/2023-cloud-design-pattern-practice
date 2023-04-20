@@ -1,0 +1,52 @@
+version: "3.8"
+services:
+  saas1:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+      target: saas
+    ports:
+      - "80"
+  saas2:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+      target: saas
+    ports:
+      - "80"
+  saas3:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+      target: saas
+    ports:
+      - "80"
+  proxy:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+      target: proxy
+    ports:
+      - "80"
+    environment:
+      INFLUXDB_CONNECTION_TOKEN: dPOfvxwBPCsnAJqE20e3vQ6xV_T5NyvLSy5sVfXgCMgYqzTf8j6avG5E4iUFJAb5Zot4iYl0k2qCW6ebXkFP1Q==
+  internal-service:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+      target: internal
+    depends_on:
+      - saas1
+      - saas2
+      - saas3
+      - proxy
+  influxdb:
+    image: influxdb:2.6.0
+    volumes:
+      - type: bind
+        source: ./setup_influx.sh
+        target: /setup_influx.sh
+    ports:
+      - "8086:8086"
+    environment:
+      INFLUXDB_CONNECTION_TOKEN: dPOfvxwBPCsnAJqE20e3vQ6xV_T5NyvLSy5sVfXgCMgYqzTf8j6avG5E4iUFJAb5Zot4iYl0k2qCW6ebXkFP1Q==

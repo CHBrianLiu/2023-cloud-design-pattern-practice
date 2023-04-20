@@ -126,6 +126,7 @@ celerybeat.pid
 # Environments
 .env
 .venv
+.venv*
 env/
 venv/
 ENV/
@@ -174,3 +175,6 @@ poetry.toml
 pyrightconfig.json
 
 # End of https://www.toptal.com/developers/gitignore/api/python
+
+# mac stuff
+.DS_Store
