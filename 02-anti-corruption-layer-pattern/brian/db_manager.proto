@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+import "google/protobuf/timestamp.proto";
+
+service DbManager {
+  rpc GetUser (GetUserRequest) returns (User) {};
+}
+
+message GetUserRequest {
+  // the id of the user.
+  string id = 1;
+}
+
+message Post {
+  // timestamp when the post was created.
+  google.protobuf.Timestamp created = 1;
+  // timestamp when the post was last updated.
+  google.protobuf.Timestamp updated = 2;
+  // the content of the post.
+  string content = 3;
+}
+
+message User {
+  // UUID for the user.
+  string id = 1;
+  // the email address of the user.
+  string email = 2;
+  // posts the user has made.
+  repeated Post posts = 3;
+}
