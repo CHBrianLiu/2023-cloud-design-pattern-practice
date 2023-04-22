@@ -18,6 +18,11 @@ to perform data operations.
 
 ## Demo setup
 
+```shell
+docker compose up -d
+docker compose exec db_manager python -m setup
+```
+
 ## Run the demo
 
 ## Demo

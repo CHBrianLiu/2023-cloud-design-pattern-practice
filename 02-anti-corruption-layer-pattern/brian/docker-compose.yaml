@@ -17,3 +17,14 @@ services:
       POSTGRES_DB: postgres
     ports:
       - "5432"
+  db-manager:
+    build:
+      target: db_manager
+    tty: true
+    volumes:
+      - type: bind
+        source: ./models
+        target: /app/models
+      - type: bind
+        source: ./setup
+        target: /app/setup
