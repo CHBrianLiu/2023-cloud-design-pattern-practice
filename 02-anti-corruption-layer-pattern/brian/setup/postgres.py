@@ -20,10 +20,11 @@ def _build_tables():
 
 @orm.db_session
 def _insert_initial_data():
-    User(email="abc@gmail.com")
+    new_user = User(email="abc@gmail.com")
+    return new_user.id
 
 
 def setup():
     _build_connection()
     _build_tables()
-    _insert_initial_data()
+    return _insert_initial_data()
