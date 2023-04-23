@@ -1,5 +1,4 @@
 from datetime import datetime
-from pymongo import MongoClient
 
 from models import db
 

@@ -34,3 +34,59 @@ docker compose run client \
 ```
 
 ## Demo
+
+Data is stored in separate databases.
+
+```
+$ docker compose exec relational-db psql -U postgres -c 'select * from "user";'
+                  id                  |     email     |          created           
+--------------------------------------+---------------+----------------------------
+ a69c6294-0beb-4cb1-a94c-5207e6d81bbd | abc@gmail.com | 2023-04-23 09:51:08.597678
+(1 row)
+
+$ docker compose exec document-db mongosh "mongodb://root:example@localhost"
+test> use social_platform
+switched to db social_platform
+social_platform> db.posts.find()
+[
+  {
+    _id: ObjectId("6444ff8c0e683f2df99264f2"),
+    author_id: 'a69c6294-0beb-4cb1-a94c-5207e6d81bbd',
+    created: ISODate("2023-04-23T09:51:08.544Z"),
+    content: 'This is my first post.'
+  },
+  {
+    _id: ObjectId("6444ff8c0e683f2df99264f3"),
+    author_id: 'a69c6294-0beb-4cb1-a94c-5207e6d81bbd',
+    created: ISODate("2023-04-23T09:51:08.544Z"),
+    content: 'This is my second post.'
+  }
+]
+```
+
+We can use one single gRPC call to get a domain-centric data view.
+
+```
+$ docker compose run client \
+  -plaintext -proto db_manager.proto \
+  -d '{"id": "", "email": "abc@gmail.com"}' \
+  db-manager:50051 DbManager.GetUser
+
+{
+  "id": "a69c6294-0beb-4cb1-a94c-5207e6d81bbd",
+  "email": "abc@gmail.com",
+  "posts": [
+    {
+      "created": "2023-04-23T09:51:08.544Z",
+      "updated": "2023-04-23T09:51:08.544Z",
+      "content": "This is my first post."
+    },
+    {
+      "created": "2023-04-23T09:51:08.544Z",
+      "updated": "2023-04-23T09:51:08.544Z",
+      "content": "This is my second post."
+    }
+  ]
+}
+
+```
