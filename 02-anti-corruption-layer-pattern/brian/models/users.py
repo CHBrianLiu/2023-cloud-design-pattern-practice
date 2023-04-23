@@ -3,10 +3,10 @@ from datetime import datetime
 
 from pony import orm
 
-from .db import db
+from .db import postgres_db
 
 
-class User(db.Entity):
+class User(postgres_db.Entity):
     id = orm.PrimaryKey(UUID, default=uuid4)
     email = orm.Required(str, unique=True, index=True)
     created = orm.Required(datetime, default=datetime.utcnow)

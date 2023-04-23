@@ -1,11 +1,11 @@
-from models.db import db
+from models.db import postgres_db
 from models.users import User
 
 from pony import orm
 
 
 def _build_connection():
-    db.bind(
+    postgres_db.bind(
         provider='postgres',
         user='postgres',
         password='example',
@@ -15,13 +15,15 @@ def _build_connection():
 
 
 def _build_tables():
-    db.generate_mapping(create_tables=True)
+    postgres_db.generate_mapping(create_tables=True)
 
 
 @orm.db_session
 def _insert_initial_data():
+    print("creating a new user...")
     new_user = User(email="abc@gmail.com")
-    return new_user.id
+    print(f"new user created. id: {new_user.id}")
+    return str(new_user.id)
 
 
 def setup():

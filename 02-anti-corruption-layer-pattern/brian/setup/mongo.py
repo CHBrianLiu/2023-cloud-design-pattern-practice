@@ -1,6 +1,8 @@
 from datetime import datetime
 from pymongo import MongoClient
 
+from models import db
+
 _posts = [
     {
         "author_id": "",
@@ -15,8 +17,8 @@ _posts = [
 ]
 
 
-def setup(author_id):
-    client = MongoClient("mongodb://root:example@document-db")
-    db = client.social_platform
-    posts = db.posts
-    posts.insert.insert_many(map(lambda p: {**p, "author_id": author_id}, _posts))
+def setup(author_id: str):
+    posts = db.mongo_db.posts
+    print(f"adding {len(_posts)} posts...")
+    posts.insert_many(map(lambda p: {**p, "author_id": author_id}, _posts))
+    print("posts added")
