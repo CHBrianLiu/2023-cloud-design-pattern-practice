@@ -7,10 +7,12 @@ from typing import ClassVar as _ClassVar, Iterable as _Iterable, Mapping as _Map
 DESCRIPTOR: _descriptor.FileDescriptor
 
 class GetUserRequest(_message.Message):
-    __slots__ = ["id"]
+    __slots__ = ["email", "id"]
+    EMAIL_FIELD_NUMBER: _ClassVar[int]
     ID_FIELD_NUMBER: _ClassVar[int]
+    email: str
     id: str
-    def __init__(self, id: _Optional[str] = ...) -> None: ...
+    def __init__(self, id: _Optional[str] = ..., email: _Optional[str] = ...) -> None: ...
 
 class Post(_message.Message):
     __slots__ = ["content", "created", "updated"]

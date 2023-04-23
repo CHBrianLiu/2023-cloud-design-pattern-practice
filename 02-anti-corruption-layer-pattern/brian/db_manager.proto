@@ -3,12 +3,15 @@ syntax = "proto3";
 import "google/protobuf/timestamp.proto";
 
 service DbManager {
+  // Get user information and posts by the user.
   rpc GetUser (GetUserRequest) returns (User) {};
 }
 
 message GetUserRequest {
   // the id of the user.
   string id = 1;
+  // the email of the user.
+  string email = 2;
 }
 
 message Post {
