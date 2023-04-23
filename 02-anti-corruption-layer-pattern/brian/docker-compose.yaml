@@ -21,10 +21,15 @@ services:
     build:
       target: db_manager
     tty: true
+    ports:
+      - "50051"
+    depends_on:
+      - document-db
+      - relational-db
+  client:
+    image: fullstorydev/grpcurl
+    tty: true
     volumes:
       - type: bind
-        source: ./models
-        target: /app/models
-      - type: bind
-        source: ./setup
-        target: /app/setup
+        source: ./db_manager.proto
+        target: /db_manager.proto

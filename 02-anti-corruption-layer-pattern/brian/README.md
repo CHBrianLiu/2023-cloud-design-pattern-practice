@@ -20,9 +20,17 @@ to perform data operations.
 
 ```shell
 docker compose up -d
-docker compose exec db_manager python -m setup
+docker compose exec db-manager python -m setup
+docker compose exec -d db-manager python db_manager.py
 ```
 
 ## Run the demo
+
+```shell
+docker compose run client \
+  -plaintext -proto db_manager.proto \
+  -d '{"id": "", "email": "abc@gmail.com"}' \
+  db-manager:50051 DbManager.GetUser
+```
 
 ## Demo

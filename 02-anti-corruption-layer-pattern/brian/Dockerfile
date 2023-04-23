@@ -9,6 +9,11 @@ FROM base AS db_manager
 
 WORKDIR /app
 
-COPY models /app/models
-COPY setup /app/setup
-COPY db_manager.py /app/db_manager.py
+COPY gen gen
+COPY models models
+COPY setup setup
+COPY db_manager.py db_manager.py
+
+ENV PYTHONPATH=/app/gen
+
+#CMD ["python", "db_manager.py"]
