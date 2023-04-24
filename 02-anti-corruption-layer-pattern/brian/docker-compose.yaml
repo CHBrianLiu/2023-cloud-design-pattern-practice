@@ -1,0 +1,35 @@
+version: "3.8"
+services:
+  document-db:
+    image: mongo
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+    ports:
+      - "27017"
+  relational-db:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: example
+      POSTGRES_DB: postgres
+    ports:
+      - "5432"
+  db-manager:
+    build:
+      target: db_manager
+    tty: true
+    ports:
+      - "50051"
+    depends_on:
+      - document-db
+      - relational-db
+  client:
+    image: fullstorydev/grpcurl
+    tty: true
+    volumes:
+      - type: bind
+        source: ./db_manager.proto
+        target: /db_manager.proto
