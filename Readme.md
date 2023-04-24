@@ -54,6 +54,7 @@
 | 37 | [Strangler Fig](https://learn.microsoft.com/en-us/azure/architecture/patterns/strangler-fig)                                   |       |      |
 | 38 | [Throttling](https://learn.microsoft.com/en-us/azure/architecture/patterns/throttling)                                         |       |      |
 | 39 | [Valet Key](https://learn.microsoft.com/en-us/azure/architecture/patterns/valet-key)                                           |       |      |
+| 40 | [IoT event routing](https://learn.microsoft.com/en-us/azure/architecture/example-scenario/iot/event-routing)                   |       |   V  |
 
 ## Folder structure
 
