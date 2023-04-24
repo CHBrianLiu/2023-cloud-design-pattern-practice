@@ -17,7 +17,7 @@
 |----|--------------------------------------------------------------------------------------------------------------------------------|:-----:|:----:|
 | 1  | [Ambassador](https://learn.microsoft.com/en-us/azure/architecture/patterns/ambassador)                                         |   V   |      |
 | 2  | [Anti-Corruption Layer](https://learn.microsoft.com/en-us/azure/architecture/patterns/anti-corruption-layer)                   |   V   |      |
-| 3  | [Asynchronous Request-Reply](https://learn.microsoft.com/en-us/azure/architecture/patterns/async-request-reply)                |       |      |
+| 3  | [Asynchronous Request-Reply](https://learn.microsoft.com/en-us/azure/architecture/patterns/async-request-reply)                |   V   |      |
 | 4  | [Backends for Frontends](https://learn.microsoft.com/en-us/azure/architecture/patterns/backends-for-frontends)                 |       |      |
 | 5  | [Bulkhead](https://learn.microsoft.com/en-us/azure/architecture/patterns/bulkhead)                                             |       |      |
 | 6  | [Cache-Aside](https://learn.microsoft.com/en-us/azure/architecture/patterns/cache-aside)                                       |       |      |
