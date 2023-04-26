@@ -20,6 +20,15 @@ prompts. In other words, we are at risk of losing contact with users.
 
 ## Demo setup
 
+### Prerequisites
+
+- Azure CLI (also logged in)
+
+```shell
+az group create --name='brian-async-req-reply-pattern' --location japaneast
+az deployment group create -g brian-async-req-reply-pattern -f main.bicep
+```
+
 ## Run the demo
 
 ## Demo
