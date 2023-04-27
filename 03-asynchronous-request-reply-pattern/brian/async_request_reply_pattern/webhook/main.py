@@ -1,10 +1,17 @@
-from fastapi import FastAPI, Header, status, Request, HTTPException, BackgroundTasks
+import json
+import typing
+import uuid
+
+from fastapi import (
+    FastAPI, Header, status, Request, HTTPException, BackgroundTasks
+)
 from linebot import LineBotApi
 from linebot.exceptions import InvalidSignatureError
 from linebot.models import TextMessage, MessageEvent
 
-import constants
-from line import BackgroundTaskWebhookHandler as WebhookHandler
+from . import constants
+from .line import BackgroundTaskWebhookHandler as WebhookHandler
+from .. import az
 
 app = FastAPI()
 
@@ -12,15 +19,19 @@ line_bot_api = LineBotApi(constants.LINE_CHANNEL_ACCESS_TOKEN)
 handler = WebhookHandler(constants.LINE_CHANNEL_SECRET)
 
 
-def dummy_func():
-    """Used in unit test to ensure event handlers are called in the background"""
-    pass
+class PromptMessage(typing.TypedDict):
+    id: str
+    prompt: str
 
 
 @handler.add(MessageEvent, TextMessage)
 def handle_text_message(event: MessageEvent):
-    # message: TextMessage = event.message
-    dummy_func()
+    text_message: TextMessage = event.message
+    queue_message: PromptMessage = {
+        "id": str(uuid.uuid4()),
+        "prompt": text_message.text,
+    }
+    az.queue_client.send_message(json.dumps(queue_message))
 
 
 @app.post("/")

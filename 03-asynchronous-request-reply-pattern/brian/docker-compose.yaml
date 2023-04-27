@@ -13,7 +13,11 @@ services:
   # webhook server
   webhook:
     build:
-      context: ./webhook
-      target: dev
+      context: .
+      target: webhook
+    environment:
+      LOCAL: true
+    env_file:
+      - async_request_reply_pattern/webhook/secrets.env
   worker:
     image: python:3.11
