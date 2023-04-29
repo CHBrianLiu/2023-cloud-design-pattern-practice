@@ -1,5 +1,4 @@
 import json
-import typing
 import uuid
 
 from fastapi import (
@@ -12,16 +11,12 @@ from linebot.models import TextMessage, MessageEvent
 from . import constants
 from .line import BackgroundTaskWebhookHandler as WebhookHandler
 from .. import az
+from ..models import PromptMessage
 
 app = FastAPI()
 
 line_bot_api = LineBotApi(constants.LINE_CHANNEL_ACCESS_TOKEN)
 handler = WebhookHandler(constants.LINE_CHANNEL_SECRET)
-
-
-class PromptMessage(typing.TypedDict):
-    id: str
-    prompt: str
 
 
 @handler.add(MessageEvent, TextMessage)
