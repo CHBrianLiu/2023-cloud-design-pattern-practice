@@ -2,7 +2,7 @@ import enum
 import json
 import uuid
 
-from linebot.models import TextMessage, MessageEvent, TemplateSendMessage, ButtonsTemplate, PostbackAction
+from linebot.models import TextMessage, MessageEvent, TemplateSendMessage, ButtonsTemplate, PostbackAction, PostbackEvent, TextSendMessage
 
 from . import constants
 from .line import BackgroundTaskWebhookHandler as WebhookHandler, line_bot_api
@@ -46,3 +46,20 @@ def handle_text_message(event: MessageEvent):
         event.reply_token,
         _compose_check_later_message(CheckMessageStage.INITIAL, task_id)
     )
+
+@handler.add(PostbackEvent)
+def handle_postback_event(event: PostbackEvent):
+    blob = az.container_client.get_blob_client(event.postback.data)
+    if not blob.exists():
+        line_bot_api.reply_message(
+            event.reply_token,
+            _compose_check_later_message(
+                CheckMessageStage.CONSTANT,
+                event.postback.data,
+            )
+        )
+    else:
+        line_bot_api.reply_message(
+            event.reply_token,
+            TextSendMessage(blob.download_blob().readall().decode())
+        )
