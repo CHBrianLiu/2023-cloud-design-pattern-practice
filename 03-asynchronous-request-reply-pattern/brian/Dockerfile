@@ -11,3 +11,7 @@ COPY async_request_reply_pattern /app/async_request_reply_pattern
 FROM dev AS webhook
 
 CMD ["uvicorn", "async_request_reply_pattern.webhook.main:app", "--host", "0.0.0.0", "--port", "80"]
+
+FROM dev AS worker
+
+CMD ["python", "-m", "async_request_reply_pattern.worker"]

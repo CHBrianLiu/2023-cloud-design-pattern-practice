@@ -20,4 +20,10 @@ services:
     env_file:
       - async_request_reply_pattern/webhook/secrets.env
   worker:
-    image: python:3.11
+    build:
+      context: .
+      target: worker
+    environment:
+      LOCAL: true
+    env_file:
+      - async_request_reply_pattern/webhook/secrets.env
