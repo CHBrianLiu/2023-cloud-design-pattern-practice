@@ -1,15 +1,11 @@
 from fastapi import (
     FastAPI, Header, status, Request, HTTPException, BackgroundTasks
 )
-from linebot import LineBotApi
 from linebot.exceptions import InvalidSignatureError
 
-from . import constants
 from . import handlers
 
 app = FastAPI()
-
-line_bot_api = LineBotApi(constants.LINE_CHANNEL_ACCESS_TOKEN)
 
 
 @app.post("/")

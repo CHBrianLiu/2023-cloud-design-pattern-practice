@@ -6,10 +6,10 @@ import os
 
 from fastapi.testclient import TestClient
 from linebot.exceptions import InvalidSignatureError
-from linebot.models import MessageEvent, TextMessage
 from azure.core.exceptions import ResourceExistsError
 
 from . import main
+from . import handlers
 from .. import az
 
 
@@ -18,7 +18,7 @@ class TestHandleWebhook(TestCase):
 
     def test_handle_webhook_return_400_for_invalid_signature(self):
         with patch.object(
-            main.handler.parser.signature_validator,
+            handlers.handler.parser.signature_validator,
             "validate",
             autospec=True
         ) as mock_validate:
@@ -37,7 +37,7 @@ class TestHandleWebhook(TestCase):
             "az",
             autospec=True
         ) as az, patch.object(
-            main.handler.parser.signature_validator,
+            handlers.handler.parser.signature_validator,
             "validate",
             autospec=True
         ):
@@ -76,29 +76,6 @@ class TestHandleWebhook(TestCase):
             az.queue_client.send_message.assert_called()
 
 
-class TestHandleWebhookWithRealAzureQueue(TestCase):
-    client = TestClient(main.app)
-
-    @classmethod
-    def setUp(cls) -> None:
-        try:
-            az.queue_client.create_queue()
-        except ResourceExistsError:
-            pass
-        az.queue_client.clear_messages()
-
-    def tearDown(self) -> None:
-        az.queue_client.clear_messages()
-
-    def test_push_message_to_queue(self):
-        content = "a message"
-        event = MessageEvent(message=TextMessage(text=content))
-
-        main.handle_text_message(event)
-        message = az.queue_client.receive_message()
-        queue_content = json.loads(message.content)["prompt"]
-
-        self.assertEqual(queue_content, content)
 
 @skipIf(not os.environ.get("e2e_test"), "not e2e test")
 class TestImageGenerationWorkflow(TestCase):
@@ -118,7 +95,7 @@ class TestImageGenerationWorkflow(TestCase):
 
     def test_send_message_to_generate_image(self):
         with patch.object(
-            main.handler.parser.signature_validator,
+            handlers.handler.parser.signature_validator,
             "validate",
             autospec=True
         ), patch("uuid.uuid4") as fake_uuid4:

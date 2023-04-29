@@ -1,5 +1,9 @@
-from linebot import WebhookHandler
+from linebot import WebhookHandler, LineBotApi
 from fastapi import BackgroundTasks
+
+from . import constants
+
+line_bot_api = LineBotApi(constants.LINE_CHANNEL_ACCESS_TOKEN)
 
 
 class BackgroundTaskWebhookHandler(WebhookHandler):
