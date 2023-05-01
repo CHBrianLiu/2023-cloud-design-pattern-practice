@@ -39,8 +39,13 @@ def upload_blob(filename: str, content: str):
 
 
 def main():
-    while message := retrieve_message():
+    while True:
         try:
+            message = retrieve_message()
+            if message is None:
+                logging.info("No message left in the queue. Sleeping...")
+                time.sleep(10)
+                continue
             # check blob existence first to avoid redundant calls
             if blob_exists(message["id"]):
                 logging.warning("Duplicate work. Skipping...")
@@ -50,4 +55,3 @@ def main():
             upload_blob(message["id"], pic_url)
         except Exception as e:
             logging.error("exception occurred: %s", e)
-    logging.info("No message left in the queue. Exiting...")
