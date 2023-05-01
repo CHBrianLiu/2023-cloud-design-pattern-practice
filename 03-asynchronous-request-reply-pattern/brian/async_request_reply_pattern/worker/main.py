@@ -12,10 +12,12 @@ from ..models import PromptMessage
 
 
 def retrieve_message() -> PromptMessage | None:
-    message: QueueMessage | None = az.queue_client.receive_message()
-    if message is None:
+    raw_message: QueueMessage | None = az.queue_client.receive_message()
+    if raw_message is None:
         return None
-    return json.loads(message.content)
+    message = json.loads(raw_message.content)
+    az.queue_client.delete_message(raw_message)
+    return message
 
 
 def generate_picture(prompt: str) -> str:
