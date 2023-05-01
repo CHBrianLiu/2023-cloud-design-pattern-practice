@@ -25,6 +25,8 @@ def generate_picture(prompt: str) -> str:
     )
     return response["data"][0]["url"]
 
+def blob_exists(filename: str) -> bool:
+    return az.container_client.get_blob_client(filename).exists()
 
 def upload_blob(filename: str, content: str):
     az.container_client.upload_blob(
@@ -35,14 +37,15 @@ def upload_blob(filename: str, content: str):
 
 
 def main():
-    while True:
+    while message := retrieve_message():
         try:
-            message = retrieve_message()
-            if message is None:
-                time.sleep(5)
+            # check blob existence first to avoid redundant calls
+            if blob_exists(message["id"]):
+                logging.warning("Duplicate work. Skipping...")
                 continue
 
             pic_url = generate_picture(message["prompt"])
             upload_blob(message["id"], pic_url)
         except Exception as e:
             logging.error("exception occurred: %s", e)
+    logging.info("No message left in the queue. Exiting...")
