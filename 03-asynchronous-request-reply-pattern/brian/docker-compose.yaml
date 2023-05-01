@@ -27,3 +27,5 @@ services:
       LOCAL: true
     env_file:
       - async_request_reply_pattern/webhook/secrets.env
+    # override default command to avoid burning cpu
+    command: bash
