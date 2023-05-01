@@ -20,7 +20,7 @@ def retrieve_message() -> PromptMessage | None:
 
 def generate_picture(prompt: str) -> str:
     response = openai.Image.create(
-        api_key=constants.OPENAPI_API_KEY,
+        api_key=constants.OPENAI_API_KEY,
         prompt=prompt,
     )
     return response["data"][0]["url"]
